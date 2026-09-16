@@ -1,34 +1,40 @@
 # My Roll
 
-A [GitRoll](https://github.com/jimhoyd-com/gitroll) Roll: a private, chronological record of what happened.
+A [GitRoll](https://github.com/jimhoyd-com/gitroll) log.
 
-- `entries/YYYY/MM/<id>.md`: one Markdown file per event, with YAML front matter
-- `projects/<slug>.yaml`: projects that events reference
-- `attachments/<sha256>.<ext>`: photos, receipts and documents, named by content hash
-- `.gitroll/types/<id>.yaml`: optional custom event types
+Events live in [`.gitroll/events/`](.gitroll/events), one Markdown file each, and the files kept
+with them live in `.gitroll/files/`. [`.gitroll/README.md`](.gitroll/README.md) explains the
+format and has a copyable example.
 
-Every file uses an ordinary format. Edit files directly, commit, and push; GitRoll picks up the changes.
-Run `gitroll check` to validate the Roll locally. No GitHub Actions are needed.
+To log something: create `.gitroll/events/2026-09-15-ac-serviced.md`, write what happened, then
+commit and push. Nothing has to be installed.
 
-**Keep this repository private.**
+This log is as visible as this repository: keep it private if what you log is private.
 
 ---
 
 ## Using this template
 
-This repository is the starting point for a **Roll**, a private logbook for [GitRoll](https://github.com/jimhoyd-com/gitroll). It holds only starter data: no app code, scripts or GitHub Actions. You use it through the GitRoll app on your own computer.
+This repository is the starting point for a **Roll**: a log kept as ordinary Markdown files in Git. Everything GitRoll knows about lives in [`.gitroll/`](.gitroll), and that folder is committed like the rest of the repository.
 
-Most people don't need this template: install GitRoll and run `gitroll setup`, which creates a private repository for you. Use the template if you'd rather create the repository yourself on GitHub (for example, in an organization, or with your own settings).
+You do not need [GitRoll](https://github.com/jimhoyd-com/gitroll) to use it. Git and a text editor are enough; [`.gitroll/README.md`](.gitroll/README.md) is the whole format. GitRoll is an optional app that reads and writes the same files.
 
-1. **Install GitRoll** on your computer. See [Install](https://github.com/jimhoyd-com/gitroll#install).
-2. **Create your repository from this template.** Click **Use this template → Create a new repository**, pick the owner and a name, and choose **Private**. Leave "Include all branches" unchecked.
-3. **Clone it** to your computer:
+1. **Create your repository from this template.** Click **Use this template → Create a new repository**, pick the owner and a name, and choose **Private** if what you log is private.
+2. **Clone it** to your computer:
 
    ```bash
    git clone git@github.com:YOU/YOUR-ROLL.git
    ```
 
-4. **Open it with GitRoll:**
+3. **Log something.** Create `.gitroll/events/2026-09-15-ac-serviced.md`, write what happened, then:
+
+   ```bash
+   git add .gitroll
+   git commit -m "AC serviced"
+   git push
+   ```
+
+4. **Optionally, open it with GitRoll:**
 
    ```bash
    cd YOUR-ROLL
@@ -37,12 +43,11 @@ Most people don't need this template: install GitRoll and run `gitroll setup`, w
 
    GitRoll checks the files, adds the Roll to your list, and opens it. Use ↑↓ to browse, `n` to log, `/` to find, `s` to sync and `o` to open it in your browser. `gitroll rolls add .` adds it without opening.
 
-5. **Name it:** `gitroll rename "Home"`. After that, log from anywhere with `gitroll log "what happened" --roll home`, and back up with `gitroll sync`.
-
 ### Good to know
 
-- **Keep it private.** GitRoll refuses to sync to a public repository.
-- **Upgrades don't touch your Roll.** New GitRoll versions read the same files, so there's nothing to update here. Upgrade the app with `gitroll upgrade`.
-- **Changes to this template don't reach existing Rolls.** A repository created from a template is a copy, not a fork.
+- **The log is as visible as the repository.** `.gitroll/` is a namespace, not a privacy boundary: in a public repository, every event and every file in it is public. GitRoll refuses to sync a Roll to a public repository.
+- **`.gitroll/config.yaml` records the template version** this repository follows. GitRoll reads it, and never changes it while logging or editing.
+- **Already have a project?** You don't need this template. Run `gitroll` inside that repository and choose *Add a log to this repository*: only `.gitroll/` is created, and nothing else is touched.
+- **Upgrades don't touch your log.** New GitRoll versions read the same files. Upgrade the app with `gitroll upgrade`.
 - **No GitHub Actions are needed.** Logging and syncing use none of your Actions minutes.
 - **Questions or problems?** Open an issue on [jimhoyd-com/gitroll](https://github.com/jimhoyd-com/gitroll/issues). This repository is generated from [`template/`](https://github.com/jimhoyd-com/gitroll/tree/main/template) there on each release, so please don't open pull requests here.
